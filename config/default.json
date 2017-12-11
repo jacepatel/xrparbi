@@ -1,0 +1,8 @@
+{
+    // BTCMarkets API Keys
+    "BTCMarkets": {
+        "apiKey": "anapikey",
+        "secretKey": "asecretkey",
+        "url": "https://api.btcmarkets.net"
+    }
+}

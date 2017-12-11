@@ -1,0 +1,8 @@
+{
+    // BTCMarkets API Keys
+    "BTCMarkets": {
+        "apiKey": "BTCM_API_KEY",
+        "secretKey": "BTCM_SECRET_KEY",
+        "url": "BTCM_URL"
+    }
+}

@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "tsc && mocha dist/**/*.spec.js",
-    "start": "tsc && node server.js",
+    "start": "tsc && node dist/server.js",
     "tsc": "tsc"
   },
   "repository": {
@@ -23,6 +23,13 @@
     "@types/node": "^8.0.57",
     "eslint": "^4.13.0",
     "mocha": "^4.0.1",
+    "tslint": "^5.8.0",
     "typescript-eslint-parser": "^9.0.1"
+  },
+  "dependencies": {
+    "@types/config": "0.0.33",
+    "config": "^1.28.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
   }
 }
