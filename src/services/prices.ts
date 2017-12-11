@@ -1,3 +1,5 @@
+// This file details the current prices on BTCM
+
 import * as config from "config"
 import * as rp from "request-promise"
 
@@ -17,3 +19,7 @@ export async function getBtcAudPrice() {
     let currentPriceInformation = await rp(options)
     return currentPriceInformation;
 }
+
+export async function getXrpBtcPrice() {}
+
+export async function getXrpAudPrice() {}

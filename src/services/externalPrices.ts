@@ -1,0 +1,1 @@
+// This file details prices on other exchanges used as indicators for cancelling sell or buy orders
