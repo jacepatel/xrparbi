@@ -7,8 +7,11 @@
 `
 mkdir xrparbi
   git init
+
   cd xrparbi/
+
   touch README.md
+  
   git init
   git add --all
   git commit -m "Add the readme"
