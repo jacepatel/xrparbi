@@ -1,0 +1,28 @@
+{
+  "name": "xrparbi",
+  "version": "1.0.0",
+  "description": "A fun bot",
+  "main": "server.js",
+  "scripts": {
+    "test": "tsc && mocha dist/**/*.spec.js",
+    "start": "tsc && node server.js",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacepatel/xrparbi.git"
+  },
+  "author": "Jace Patel, Philip Fraser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacepatel/xrparbi/issues"
+  },
+  "homepage": "https://github.com/jacepatel/xrparbi#readme",
+  "devDependencies": {
+    "@types/mocha": "^2.2.44",
+    "@types/node": "^8.0.57",
+    "eslint": "^4.13.0",
+    "mocha": "^4.0.1",
+    "typescript-eslint-parser": "^9.0.1"
+  }
+}
