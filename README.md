@@ -4,14 +4,11 @@
 
 * To build this project I used the commands
 
-`
+```
 mkdir xrparbi
   git init
-
   cd xrparbi/
-
   touch README.md
-  
   git init
   git add --all
   git commit -m "Add the readme"
@@ -35,4 +32,4 @@ mkdir xrparbi
   git add --all
   git commit -m "Get some files and app in play"
   git push
-`
+```
