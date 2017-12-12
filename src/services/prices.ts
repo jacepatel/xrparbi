@@ -13,13 +13,9 @@ var options = {
     json: true
 };
 
-export async function getBtcAudPrice() {
-    let requestOptions = options;
-    requestOptions.uri = `${BASE_URL}/market/BTC/AUD/tick`;
-    let currentPriceInformation = await rp(options)
-    return currentPriceInformation;
+export async function getPrices(coin, currency) {
+	let requestOptions = options;
+	requestOptions.uri = `${BASE_URL}/market/${coin}/${currency}/tick`;
+	let currentPriceInformation = await rp(options)
+	return currentPriceInformation;
 }
-
-export async function getXrpBtcPrice() {}
-
-export async function getXrpAudPrice() {}
