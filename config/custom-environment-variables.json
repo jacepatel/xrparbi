@@ -4,5 +4,6 @@
         "apiKey": "BTCM_API_KEY",
         "secretKey": "BTCM_SECRET_KEY",
         "url": "BTCM_URL"
-    }
+    },
+    "minimumAudBuyValue": "MINIMUM_AUD_BUY_VALUE"
 }

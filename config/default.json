@@ -4,5 +4,6 @@
         "apiKey": "anapikey",
         "secretKey": "asecretkey",
         "url": "https://api.btcmarkets.net"
-    }
+    },
+    "minimumAudBuyValue": 5000 
 }
