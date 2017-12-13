@@ -1,11 +1,14 @@
 import * as prices from "./services/prices";
 
-async function go() {
-  let currentBitcoinPrice = await prices.getBtcAudPrice();
-  console.log("The current bitcoin price is ", currentBitcoinPrice);
+async function go(displayCoin, getPrice, coin, currency) {
+  let currentCoinPrice = await getPrice(coin, currency);
+  console.log(`The current ${displayCoin} price is `, currentCoinPrice);
 }
 
-go();
+// EXAMPLE PRICE CALLS.
+go('Ripple', prices.getPrices, 'XRP', 'AUD');
+go('Bitcoin', prices.getPrices, 'BTC', 'AUD');
+go('Ripple to BTC', prices.getPrices, 'XRP', 'BTC');
 
 
 // General gist
