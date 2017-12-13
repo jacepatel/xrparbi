@@ -9,21 +9,25 @@ async function logCurrentPrice(displayCoin, getPrice, coin, currency) {
   console.log(`The current ${displayCoin} price is `, currentCoinPrice);
 }
 
-async function logOrderPrice(displayCoin, getOrderPrice, coin, currency) {
+async function logOrderBuyPrice(displayCoin, getOrderPrice, coin, currency) {
   let currentOrderPrice = await getOrderPrice(coin, currency);
-  console.log(`The current ${displayCoin} average price for purchasing ${MINIMUM_AUD_BUY_VALUE}${currency} is `, currentOrderPrice);
+  console.log(`The current average price ${displayCoin} to purchase ${MINIMUM_AUD_BUY_VALUE}${currency} is `, currentOrderPrice);
+}
+
+async function logOrderSellPrice(displayCoin, getOrderPrice, coin, currency) {
+  let currentOrderPrice = await getOrderPrice(coin, currency);
+  console.log(`The current average price ${displayCoin} to sell ${MINIMUM_AUD_BUY_VALUE}${currency} is `, currentOrderPrice);
 }
 
 // EXAMPLE PRICE CALLS.
 async function listPrices() {
-  await logCurrentPrice('Ripple', prices.getPrices, 'XRP', 'AUD');
-  await logOrderPrice('Ripple', orders.getAveragePriceOfBuyingMinimum, 'XRP', 'AUD');
+  await logCurrentPrice('XRP', prices.getPrices, 'XRP', 'AUD');
+  await logOrderBuyPrice('XRP', orders.getAveragePriceOfBuyingMinimum, 'XRP', 'AUD');
+  await logOrderSellPrice('XRP', orders.getAveragePriceOfSellingMinimum, 'XRP', 'AUD');
 
   await logCurrentPrice('BTC', prices.getPrices, 'BTC', 'AUD');
-  await logOrderPrice('BTC', orders.getAveragePriceOfBuyingMinimum, 'BTC', 'AUD');
-
-  await logCurrentPrice('ETH', prices.getPrices, 'ETH', 'AUD');
-  await logOrderPrice('ETH', orders.getAveragePriceOfBuyingMinimum, 'ETH', 'AUD');
+  await logOrderBuyPrice('BTC', orders.getAveragePriceOfBuyingMinimum, 'BTC', 'AUD');
+  await logOrderSellPrice('BTC', orders.getAveragePriceOfSellingMinimum, 'BTC', 'AUD');
 }
 
 listPrices();

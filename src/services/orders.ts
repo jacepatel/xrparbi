@@ -20,7 +20,7 @@ var options = {
 
 // This returns the average price of buying MINIMUM_AUD_BUY_VALUE
 export async function getAveragePriceOfBuyingMinimum(coin, currency) {
-	let requestOptions = options;
+    let requestOptions = options;
     requestOptions.uri = `${BASE_URL}/market/${coin}/${currency}/orderbook`;
     let currentOrderInformation: OrderInformation = await rp(options)
     let calculatedAsks = 0;
@@ -39,6 +39,43 @@ export async function getAveragePriceOfBuyingMinimum(coin, currency) {
                 orderWeight = orderValue / minimumBuyValue;
             }
             calculatedAsks += orderValue;
+            listOfViableOrdersValues.push({
+                orderWeight,
+                orderPrice,
+            })
+        }
+        return;
+    })
+    
+    let averagePrice = 0;
+    listOfViableOrdersValues.forEach((order) => {
+        averagePrice += order.orderWeight * order.orderPrice;
+    })
+
+    return averagePrice;
+}
+
+// This returns the average price of buying MINIMUM_AUD_BUY_VALUE
+export async function getAveragePriceOfSellingMinimum(coin, currency) {
+	let requestOptions = options;
+    requestOptions.uri = `${BASE_URL}/market/${coin}/${currency}/orderbook`;
+    let currentOrderInformation: OrderInformation = await rp(options)
+    let calculatedBids = 0;
+    let listOfViableOrdersValues = [];
+    const minimumBuyValue: number = Number(MINIMUM_AUD_BUY_VALUE);
+    currentOrderInformation.bids.forEach((bid) => {
+        if (calculatedBids < MINIMUM_AUD_BUY_VALUE) {
+            const orderPrice = bid[0];
+            const bidQuantity = bid[1];
+            const orderValue = orderPrice * bidQuantity;
+            let orderWeight = 0;
+            if ( ( calculatedBids + orderValue ) > MINIMUM_AUD_BUY_VALUE) {
+                orderWeight = ( minimumBuyValue - calculatedBids ) / minimumBuyValue
+            }
+            else {
+                orderWeight = orderValue / minimumBuyValue;
+            }
+            calculatedBids += orderValue;
             listOfViableOrdersValues.push({
                 orderWeight,
                 orderPrice,
