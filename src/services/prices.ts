@@ -17,5 +17,5 @@ export async function getPrices(coin, currency) {
 	let requestOptions = options;
 	requestOptions.uri = `${BASE_URL}/market/${coin}/${currency}/tick`;
 	let currentPriceInformation = await rp(options)
-	return currentPriceInformation;
+	return currentPriceInformation.bestAsk;
 }

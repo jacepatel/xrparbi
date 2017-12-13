@@ -9,7 +9,7 @@ import { OrderInformation } from "../models/orderInformation";
 const API_KEY = config.get("BTCMarkets.apiKey")
 const SECRET_KEY = config.get("BTCMarkets.secretKey")
 const BASE_URL = config.get("BTCMarkets.url")
-const MINIMUM_AUD_BUY_VALUE = config.get("minimumBuyValue")
+let MINIMUM_AUD_BUY_VALUE = config.get("minimumAudBuyValue")
 
 var options = {
     uri: "",
@@ -17,35 +17,40 @@ var options = {
     json: true
 };
 
-export async function getOrders(coin, currency) {
+
+// This returns the average price of buying MINIMUM_AUD_BUY_VALUE
+export async function getAveragePriceOfBuyingMinimum(coin, currency) {
 	let requestOptions = options;
-	requestOptions.uri = `${BASE_URL}/market/${coin}/${currency}/orderBook`;
+    requestOptions.uri = `${BASE_URL}/market/${coin}/${currency}/orderbook`;
     let currentOrderInformation: OrderInformation = await rp(options)
-    // ASKS = PEOPLE SELLING
-    let averageCostOfMinimimAudBuyValue;
     let calculatedAsks = 0;
-    let listOfViableOrders = [];
+    let listOfViableOrdersValues = [];
+    const minimumBuyValue: number = Number(MINIMUM_AUD_BUY_VALUE);
     currentOrderInformation.asks.forEach((ask) => {
         if (calculatedAsks < MINIMUM_AUD_BUY_VALUE) {
-            const askPrice = ask[0];
+            const orderPrice = ask[0];
             const askQuantity = ask[1];
-            const orderValue = askPrice * askQuantity;
-            if (orderValue < MINIMUM_AUD_BUY_VALUE) {
-                calculatedAsks += orderValue;
-                listOfViableOrders.push([askPrice, askQuantity])
-            } else {
-                averageCostOfMinimimAudBuyValue = askPrice;
-                return;
+            const orderValue = orderPrice * askQuantity;
+            let orderWeight = 0;
+            if ( ( calculatedAsks + orderValue ) > MINIMUM_AUD_BUY_VALUE) {
+                orderWeight = ( minimumBuyValue - calculatedAsks ) / minimumBuyValue
             }
-            // if our orderValue is less than minimum_buy_value
-            // push that to the array for calculating average price
-            // else push the whole value
+            else {
+                orderWeight = orderValue / minimumBuyValue;
+            }
+            calculatedAsks += orderValue;
+            listOfViableOrdersValues.push({
+                orderWeight,
+                orderPrice,
+            })
         }
-        console.log("END");
         return;
     })
-    // .asks.forEach((ask) => {
-    //     ask.
-    // })
-	return currentPriceInformation;
+    
+    let averagePrice = 0;
+    listOfViableOrdersValues.forEach((order) => {
+        averagePrice += order.orderWeight * order.orderPrice;
+    })
+
+	return averagePrice;
 }
