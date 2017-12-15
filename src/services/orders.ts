@@ -1,22 +1,18 @@
-// This file details the current orders in BTCM
-
-// This file details the current prices on BTCM
-
-import * as config from "config"
-import * as rp from "request-promise"
+// This file details the current prices on BTC
+import * as config from "config";
+import * as rp from "request-promise";
 import { OrderInformation } from "../models/orderInformation"; 
 
-const API_KEY = config.get("BTCMarkets.apiKey")
-const SECRET_KEY = config.get("BTCMarkets.secretKey")
-const BASE_URL = config.get("BTCMarkets.url")
-let MINIMUM_AUD_BUY_VALUE = config.get("minimumAudBuyValue")
+const API_KEY = config.get("BTCMarkets.apiKey");
+const SECRET_KEY = config.get("BTCMarkets.secretKey");
+const BASE_URL = config.get("BTCMarkets.url");
+let MINIMUM_AUD_BUY_VALUE = config.get("minimumAudBuyValue");
 
 var options = {
     uri: "",
     method: "GET",
     json: true
 };
-
 
 // This returns the average price of buying MINIMUM_AUD_BUY_VALUE
 export async function getAveragePriceOfBuyingMinimum(coin, currency) {
@@ -26,6 +22,7 @@ export async function getAveragePriceOfBuyingMinimum(coin, currency) {
     let calculatedAsks = 0;
     let listOfViableOrdersValues = [];
     const minimumBuyValue: number = Number(MINIMUM_AUD_BUY_VALUE);
+    // console.log(currentOrderInformation)
     currentOrderInformation.asks.forEach((ask) => {
         if (calculatedAsks < MINIMUM_AUD_BUY_VALUE) {
             const orderPrice = ask[0];
