@@ -39,11 +39,13 @@ async function listPrices() {
   await logCurrentPrice(prices.getPrices, 'BTC', 'AUD');
   await logOrderBuyPrice(orders.getAveragePriceOfBuyingMinimum, 'BTC', 'AUD', MINIMUM_AUD_BUY_VALUE);
   await totalBuyQuantity(orders.getAveragePriceOfBuyingMinimum, 'BTC', 'AUD', MINIMUM_AUD_BUY_VALUE);
+  // Use the result from this block as totalCapital in the next block.
 
   // Use total BTC purchased as totalCapital here.
   await logCurrentPrice(prices.getPrices, 'XRP', 'BTC');
   await logOrderBuyPrice(orders.getAveragePriceOfBuyingMinimum, 'XRP', 'BTC', 0.24217942721564958);
   await totalBuyQuantity(orders.getAveragePriceOfBuyingMinimum, 'XRP', 'BTC', 0.24217942721564958);
+  // Use the result from this block as totalCapital in the next block.
 
   // Use total XRP purchased as totalCapital here.
   await logCurrentPrice(prices.getPrices, 'XRP', 'AUD');
